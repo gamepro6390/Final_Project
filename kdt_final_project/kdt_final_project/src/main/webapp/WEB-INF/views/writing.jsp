@@ -19,6 +19,7 @@
 <section>
 	<h1>글쓰기</h1>
     <form action="/upload" method="POST">
+    	<input type=text /><br/>
       <textarea name="text" id="editor"></textarea>
     <p><input type="submit" value="글쓰기" id="submit" class="font_title"></p>
 </section>
