@@ -15,7 +15,7 @@
 </style>
 </head>
 <body>
-<%@ include file="../views/header.jsp"%>
+<%@ include file="../views/home/header.jsp"%>
 <section>
     <form action="/upload" method="POST">
     <input type=text id="title" name=title placeholder="제목"/>
@@ -40,7 +40,7 @@
 	  ckfinder: {uploadUrl : 'upload'}
   } );
 </script>
-<%@ include file="../views/footer.jsp"%>
+<%@ include file="../views/home/footer.jsp"%>
 <div style="position:fixed; bottom:1%; right:1%;">
 <a href="#"><img src="../img/top.png" width="20px" height="20px"></a>
 </div>
