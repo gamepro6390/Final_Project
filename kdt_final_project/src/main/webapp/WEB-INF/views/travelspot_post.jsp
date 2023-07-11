@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +15,10 @@
 
 </head>
 <body>
-<jsp:include page="../views/header.jsp" />
+<jsp:include page="../views/home/header.jsp" />
 
 <!-- 관광명소이름 -->
-<div class="font_title margin">제주 카멜리아힐</div>
+<div class="font_title margin"> ${placedto.title} </div>
 
 <!-- 관광명소 메뉴바 -->
 <hr class="hrmargin">

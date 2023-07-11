@@ -6,7 +6,7 @@
     <title>로그인 실패</title>
     <script>
         alert("${message}"); // 얼럿 메시지 노출
-        history.back(); // 이전 페이지로 돌아가기
+        history.back(); // 이전 페이지로 돌아가기 
     </script>
 </head>
 <body>

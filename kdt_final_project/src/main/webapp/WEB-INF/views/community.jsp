@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,18 +9,24 @@
 <link rel="icon" href="img/favicon.png">
 <link rel="stylesheet" type="text/css" href="css/reset.css" />
 <link rel="stylesheet" type="text/css" href="css/community.css" />
+<link rel="stylesheet" type="text/css" href="css/searchForm.css" />
 <script defer="defer" src="js/jquery-3.6.4.min.js"></script>
 <script defer="defer" src="js/community.js"></script>
 </head>
 <body>
-<%@ include file="../views/header.jsp"%>
+<%@ include file="../views/home/header.jsp"%>
 <div></div>
 <section>
 	<ul>
 		<li id="recordTap" class="on font_title"><a href="">여행기록</a></li>
 		<li id="recommendTap" class="font_title"><a href="">추천해주세요</a></li>
 	</ul>
-	<!-- 검색탭 들어갈 부분 -->
+	
+	<form action="/search" method="get" class="search-form">
+    	<input type="text" id="search-input" name="q" class="search-input" placeholder="검색어를 입력하세요...">
+    	<input type="submit" value="검색" class="search-button">
+    </form>
+    
 	<article id="record" class="on">
 		<ol class="topTen">
 			<li id="top1">
@@ -251,7 +257,7 @@
 </section>
 
 <!-- footer -->
-<%@ include file="../views/footer.jsp"%>
+<%@ include file="../views/home/footer.jsp"%>
 <div style="position:fixed; bottom:1%; right:1%;">
 <a href="#"><img src="../img/top.png" width="20px" height="20px"></a>
 </div>
