@@ -5,7 +5,7 @@ public class BoardDTO {
 	int id;
 	String title, contents, writingtime;
 	int views, likecount;
-	String board_title, writer, place;
+	String board_title, writer, place,categories;
 	public int getId() {
 		return id;
 	}
@@ -60,6 +60,18 @@ public class BoardDTO {
 	}
 	public void setPlace(String place) {
 		this.place = place;
+	}
+	public String getCategories() {
+		return categories;
+	}
+	public void setCategories(String categories) {
+		this.categories = categories;
+	}
+	@Override
+	public String toString() {
+		return "BoardDTO [id=" + id + ", title=" + title + ", contents=" + contents + ", writingtime=" + writingtime
+				+ ", views=" + views + ", likecount=" + likecount + ", board_title=" + board_title + ", writer="
+				+ writer + ", place=" + place + ", categories=" + categories + "]";
 	}
 	
 	
