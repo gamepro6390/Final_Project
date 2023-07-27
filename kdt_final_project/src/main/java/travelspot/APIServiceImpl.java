@@ -101,7 +101,7 @@ public class APIServiceImpl {
 
 		String[] themeList = new String[] { "friends", "couple", "alone", "family" };
 		// String[] urlList = new String[] {friendUrl, coupleUrl, aloneUrl, familyUrl };
-		String[] numOfRowsList = new String[] { "0", "0", "0", "1" };
+		String[] numOfRowsList = new String[] { "5", "0", "0", "0" };
 		String[] cat2List = new String[] { "C0116", "C0114", "C0113", "C0112" };
 		String[] cat3List = new String[] { "C01160001", "C01140001", "C01130001", "C01120001" };
 
@@ -144,7 +144,7 @@ public class APIServiceImpl {
 					// System.out.println(contentIdList.get(i));
 			} // for
 				// arraylist 잘 들어갔는지 확인용: System.out.println(contentIdList.size());
-
+			System.out.println("게시글 id 저장 성공");
 			getThemeInfo(contentIdList, contentTypeIdList, themeList[i]); // 기본 정보 DB 등록 - 장소명, 테마, id
 
 		} // url for
@@ -188,10 +188,14 @@ public class APIServiceImpl {
 						placemapper.insertThemeBasicInfo(placeDTO); // contentId, title, contentTypeId만 저장		
 						getThemePlaceDetail(contentId); //기본정보 불러오기: 상세정보 불러오기 포함되어 있음
 					} 					
-					
+					System.out.println("기존 place 데이터o");
+					if(placemapper.selectContentId(contentId) == 0  ) { //contents테이블 정보 없는 경우
+						getThemePlaceDetail(contentId); //기본정보 불러오기: 상세정보 불러오기 포함되어 있음
+					}
 			} // if
 			}// for
-			//getThemePlaceDetailIntro(placeContentIds, placeContentTypeIds); // 장소별 상세정보
+			//int placeContentId, int placeContentTypeId
+		
 		} // contentIdList for
 
 	}// test method
@@ -268,14 +272,14 @@ public class APIServiceImpl {
 
 				placedto.contentId = contentId.orElse(0);
 				placedto.contentTypeId = contenttypeid.orElse(0);
-				placedto.title = title.orElse("null");
+				placedto.title = title.orElse("");
 				placedto.areaCode = areaCode.orElse(0);
-				placedto.image1 = image1.orElse("null");
-				placedto.address = addr1.orElse(" ").concat(addr2.orElse(" "));
+				placedto.image1 = image1.orElse("");
+				placedto.address = addr1.orElse("").concat(addr2.orElse(""));
 				placedto.mapx = mapx.orElse(0.0);
 				placedto.mapy = mapy.orElse(0.0);
-				placedto.contents = contents.orElse("null");
-				placedto.homepage = homepage.orElse("null");
+				placedto.contents = contents.orElse("");
+				placedto.homepage = homepage.orElse("");
 
 				placemapper.updateThemePlace(placedto);
 				getThemePlaceDetailIntro(placedto.contentId, placedto.contentTypeId);
@@ -314,23 +318,23 @@ public class APIServiceImpl {
 					Element e = (Element) node;
 
 					if (placeContentTypeId == 12) {
-						PlaceContentsDTO placedto = getContentType_12(e);
-						placemapper.insertTheme12Detail(placedto);
+						ContentsDTO contentsdto = getContentType_12(e);
+						placemapper.insertTheme12Detail(contentsdto);
 						System.out.println("12성공");
 					}
 					if (placeContentTypeId == 39) {
-						PlaceContentsDTO placedto = getContentType_39(e);
-						placemapper.insertTheme39Detail(placedto);
+						ContentsDTO contentsdto = getContentType_39(e);
+						placemapper.insertTheme39Detail(contentsdto);
 						System.out.println("39성공");
 					}
 					if (placeContentTypeId == 14) {
-						PlaceContentsDTO placedto = getContentType_14(e);
-						placemapper.insertTheme14Detail(placedto);
+						ContentsDTO contentsdto = getContentType_14(e);
+						placemapper.insertTheme14Detail(contentsdto);
 						System.out.println("14성공");
 					}
 					if (placeContentTypeId == 28) {
-						PlaceContentsDTO placedto = getContentType_28(e);
-						placemapper.insertTheme28Detail(placedto);
+						ContentsDTO contentsdto = getContentType_28(e);
+						placemapper.insertTheme28Detail(contentsdto);
 						System.out.println("28성공");
 					}
 					else {
@@ -369,8 +373,8 @@ public class APIServiceImpl {
 		System.out.println(result);
 	}
 
-	public PlaceContentsDTO getContentType_14(Element e) { // 문화시설
-		PlaceContentsDTO placeContentsdto = new PlaceContentsDTO();
+	public ContentsDTO getContentType_14(Element e) { // 문화시설
+		ContentsDTO Contentsdto = new ContentsDTO();
 
 		Optional<Integer> contentId = Optional.ofNullable(Integer.parseInt(getValue("contentid", e)));
 		System.out.println("contentId: " + contentId.orElse(0));
@@ -408,24 +412,25 @@ public class APIServiceImpl {
 		Optional<String> usetimeculture = Optional.ofNullable(getValue("usetimeculture", e));
 		System.out.println("usetimeculture: " + usetimeculture.orElse("null"));
 
-		placeContentsdto.accomcountculture = accomcountculture.orElse("null");
-		placeContentsdto.chkbabycarriageculture = chkbabycarriageculture.orElse("null");
-		placeContentsdto.chkcreditcardculture = chkcreditcardculture.orElse("null");
-		placeContentsdto.chkpetculture = chkpetculture.orElse("null");
-		placeContentsdto.infocenterculture = infocenterculture.orElse("null");
-		placeContentsdto.parkingculture = parkingculture.orElse("null");
-		placeContentsdto.parkingfee = parkingfee.orElse("null");
-		placeContentsdto.restdateculture = restdateculture.orElse("null");
-		placeContentsdto.usefee = usefee.orElse("null");
-		placeContentsdto.discountinfo = discountinfo2.orElse("null");
-		placeContentsdto.usetimeculture = usetimeculture.orElse("null");
+		Contentsdto.contentId = contentId.orElse(0); //PK값 없으면 cannot add or update a child row 에러
+		Contentsdto.accomcountculture = accomcountculture.orElse("");
+		Contentsdto.chkbabycarriageculture = chkbabycarriageculture.orElse("");
+		Contentsdto.chkcreditcardculture = chkcreditcardculture.orElse("");
+		Contentsdto.chkpetculture = chkpetculture.orElse("");
+		Contentsdto.infocenterculture = infocenterculture.orElse("");
+		Contentsdto.parkingculture = parkingculture.orElse("");
+		Contentsdto.parkingfee = parkingfee.orElse("");
+		Contentsdto.restdateculture = restdateculture.orElse("");
+		Contentsdto.usefee = usefee.orElse("");
+		Contentsdto.discountinfo = discountinfo2.orElse("");
+		Contentsdto.usetimeculture = usetimeculture.orElse("");
 
-		return placeContentsdto;
+		return Contentsdto;
 	}
 
-	public PlaceContentsDTO getContentType_28(Element e) { // 레포츠
-		PlaceContentsDTO placeContentsdto = new PlaceContentsDTO();
-
+	public ContentsDTO getContentType_28(Element e) { // 레포츠
+		ContentsDTO Contentsdto = new ContentsDTO();
+		
 		// null체크
 		Optional<Integer> contentId = Optional.ofNullable(Integer.parseInt(getValue("contentid", e)));
 		System.out.println("contentId: " + contentId.orElse(0));
@@ -466,25 +471,24 @@ public class APIServiceImpl {
 		Optional<String> reservation = Optional.ofNullable(getValue("reservation", e));
 		System.out.println("reservation: " + reservation.orElse("null"));
 
-		placeContentsdto.contentId = contentId.orElse(0);
-		placeContentsdto.infocenterleports = infocenterleports.orElse("null");
-		placeContentsdto.chkbabycarriageleports = chkbabycarriageleports.orElse("null");
-		placeContentsdto.chkcreditcardleports = chkcreditcardleports.orElse("null");
-		placeContentsdto.chkpetleports = chkpetleports.orElse("null");
-		placeContentsdto.restdateleports = restdateleports.orElse("null");
-		placeContentsdto.usetimeleports = usetimeleports.orElse("null");
-		placeContentsdto.accomcountleports = accomcountleports.orElse("null");
-		placeContentsdto.openperiod = openperiod.orElse("null");
-		placeContentsdto.usefeeleports = usefeeleports.orElse("null");
-		placeContentsdto.parkingfeeleports = parkingfeeleports.orElse("null");
-		placeContentsdto.reservation = reservation.orElse("null");
+		Contentsdto.contentId = contentId.orElse(0);
+		Contentsdto.infocenterleports = infocenterleports.orElse("");
+		Contentsdto.chkbabycarriageleports = chkbabycarriageleports.orElse("");
+		Contentsdto.chkcreditcardleports = chkcreditcardleports.orElse("");
+		Contentsdto.chkpetleports = chkpetleports.orElse("");
+		Contentsdto.restdateleports = restdateleports.orElse("");
+		Contentsdto.usetimeleports = usetimeleports.orElse("");
+		Contentsdto.accomcountleports = accomcountleports.orElse("");
+		Contentsdto.openperiod = openperiod.orElse("");
+		Contentsdto.usefeeleports = usefeeleports.orElse("");
+		Contentsdto.parkingfeeleports = parkingfeeleports.orElse("");
+		Contentsdto.reservation = reservation.orElse("");
 
-		return placeContentsdto;
+		return Contentsdto;
 	}
 
-	public PlaceContentsDTO getContentType_12(Element e) { // 관광지
-		PlaceContentsDTO placeContentsdto = new PlaceContentsDTO();
-
+	public ContentsDTO getContentType_12(Element e) { // 관광지
+		ContentsDTO Contentsdto = new ContentsDTO();
 		// null체크
 		Optional<Integer> contentId = Optional.ofNullable(Integer.parseInt(getValue("contentid", e)));
 		System.out.println("contentId: " + contentId.orElse(0));
@@ -507,19 +511,19 @@ public class APIServiceImpl {
 		Optional<String> usetime = Optional.ofNullable((getValue("usetime", e)));
 		System.out.println("usetime: " + usetime.orElse("null"));
 
-		placeContentsdto.contentId = contentId.orElse(0);
-		placeContentsdto.infocenter = infocenter.orElse("null");
-		placeContentsdto.chkbabycarriage = chkbabycarriage.orElse("null");
-		placeContentsdto.chkcreditcard = chkcreditcard.orElse("null");
-		placeContentsdto.chkpet = chkpet.orElse("null");
-		placeContentsdto.restdate = restdate.orElse("null");
-		placeContentsdto.usetime = usetime.orElse("null");
+		Contentsdto.contentId = contentId.orElse(0);
+		Contentsdto.infocenter = infocenter.orElse("");
+		Contentsdto.chkbabycarriage = chkbabycarriage.orElse("");
+		Contentsdto.chkcreditcard = chkcreditcard.orElse("");
+		Contentsdto.chkpet = chkpet.orElse("");
+		Contentsdto.restdate = restdate.orElse("");
+		Contentsdto.usetime = usetime.orElse("");
 
-		return placeContentsdto;
+		return Contentsdto;
 	}
 
-	public PlaceContentsDTO getContentType_39(Element e) { // 식당
-		PlaceContentsDTO placeContentsdto = new PlaceContentsDTO();
+	public ContentsDTO getContentType_39(Element e) { // 식당
+		ContentsDTO Contentsdto = new ContentsDTO();
 
 		// null체크
 		Optional<Integer> contentId = Optional.ofNullable(Integer.parseInt(getValue("contentid", e)));
@@ -552,18 +556,18 @@ public class APIServiceImpl {
 		Optional<String> kidsfacility = Optional.ofNullable((getValue("kidsfacility", e)));// 어린이놀이방여부
 		System.out.println("kidsfacility: " + kidsfacility.orElse("null"));
 
-		placeContentsdto.contentId = contentId.orElse(0);
-		placeContentsdto.infocenterfood = infocenterfood.orElse("null");
-		placeContentsdto.chkcreditcardfood = chkcreditcardfood.orElse("null");
-		placeContentsdto.discountinfofood = discountinfofood.orElse("null");
-		placeContentsdto.firstmenu = firstmenu.orElse("null");
-		placeContentsdto.reservationfood = reservationfood.orElse("null");
-		placeContentsdto.restdatefood = restdatefood.orElse("null");
-		placeContentsdto.packing = packing.orElse("null");
-		placeContentsdto.parkingfood = parkingfood.orElse("null");
-		placeContentsdto.kidsfacility = kidsfacility.orElse("null");
+		Contentsdto.contentId = contentId.orElse(0);
+		Contentsdto.infocenterfood = infocenterfood.orElse("");
+		Contentsdto.chkcreditcardfood = chkcreditcardfood.orElse("");
+		Contentsdto.discountinfofood = discountinfofood.orElse("");
+		Contentsdto.firstmenu = firstmenu.orElse("");
+		Contentsdto.reservationfood = reservationfood.orElse("");
+		Contentsdto.restdatefood = restdatefood.orElse("");
+		Contentsdto.packing = packing.orElse("");
+		Contentsdto.parkingfood = parkingfood.orElse("");
+		Contentsdto.kidsfacility = kidsfacility.orElse("");
 
-		return placeContentsdto;
+		return Contentsdto;
 	}
 	
 	private static String getValue(String tag, Element element) {

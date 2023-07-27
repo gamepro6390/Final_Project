@@ -2,6 +2,9 @@ package User;
 
 import java.util.List;
 
+import community.BoardDTO;
+import travelspot.CommentsDTO;
+
 public interface UserDAO {
 
 	public void signup(UserDTO dto); // 회원가입
@@ -20,5 +23,17 @@ public interface UserDAO {
 
 	void updatePassword(UserDTO dto);
 
-	List<String> getRecentPages(int userId);
+	List<BoardDTO> getBoardListByWriter(String writer);
+
+	List<CommentsDTO> getCommentListByWriter(String writer);
+
+	List<LikesDTO> getLikesByUserId(int user_id);
+	
+    List<UserDTO> getAllUsers(int startIdx, int usersPerPage);
+    
+    int getTotalUserCount();
+    
+    public UserDTO getUserdetail(String userid);
+
+    void deleteUser(String userid) throws Exception;
 }

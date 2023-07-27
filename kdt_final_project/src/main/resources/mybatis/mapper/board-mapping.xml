@@ -22,4 +22,32 @@
     LIMIT 10
 </select>
 
+<!-- 최신순으로 게시글 가져오기 -->
+<select id="getNewestBoards" resultType="boarddto">
+    SELECT * FROM board
+    ORDER BY writingtime DESC
+</select>
+
+<!-- getBoardById 쿼리 매핑 -->
+<select id="getBoardById" parameterType="int" resultType="community.BoardDTO">
+	SELECT * FROM board WHERE id = #{boardId}
+</select>
+  
+<update id="updateBoard" parameterType="boarddto">
+	UPDATE board 
+	SET board_title = #{board_title}, place = #{place}, title = #{title}, contents = #{contents} 
+	WHERE id = #{id}
+</update>
+
+<delete id="deleteBoard" parameterType="boarddto">
+	DELETE FROM board WHERE id = #{id};
+</delete>
+
+<!-- 조회수 증가 -->
+<update id="increaseViewCount" parameterType="int">
+	UPDATE board
+	SET views = views + 1
+	WHERE id = #{boardId}
+</update>
+
 </mapper>

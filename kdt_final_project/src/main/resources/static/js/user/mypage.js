@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   const sideMenuNav = document.querySelector('.side-menu-nav');
   const sideMenuForms = document.querySelectorAll('.side-menu-form');
+  const tableBody = document.getElementById('boardTableBody');
+  const tableBody2 = document.getElementById('commentsTableBody');
+  const tableBody3 = document.getElementById('likesTableBody');
 
   sideMenuNav.addEventListener('click', function(event) {
     event.preventDefault();
@@ -10,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // showSection 함수에서 '#section7' 섹션만 보여주도록 수정
   function showSection(targetSectionId) {
     sideMenuForms.forEach(function(form) {
       if ('#' + form.id === targetSectionId) {
@@ -57,43 +59,212 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 최근 방문한 페이지 관련 스크립트
-  const recentVisitedPagesSection = document.getElementById('section4');
-  const recentVisitedPagesList = recentVisitedPagesSection.querySelector('ul');
+// 글쓴 내역을 AJAX로 가져오는 함수
+function getWrittenPosts() {
+  fetch('/getWrittenPosts')
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Error: ' + response.status);
+    })
+    .then(data => {
+		console.log(data);
+      // const tableBody = document.getElementById('boardTableBody');
+      tableBody.innerHTML = ''; // 기존의 내용을 초기화
 
-  // 서버로부터 최근 방문한 페이지 목록을 받아와서 동적으로 리스트 아이템을 생성
-  function populateRecentVisitedPages() {
-    fetch('/getRecentVisitedPages') // 최근 방문한 페이지 목록을 가져오는 요청
-      .then(response => response.json())
-      .then(data => {
-        // 서버에서 받은 데이터로 리스트 아이템을 생성
-        data.forEach(page => {
-          const listItem = document.createElement('li');
-          listItem.textContent = page.title;
-          recentVisitedPagesList.appendChild(listItem);
+      if (data && Array.isArray(data)) {
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          
+      const titleCell = document.createElement('td');
+      const titleLink = document.createElement('a');
+      titleLink.textContent = item.title;
+      titleLink.href = '/detail?boardId=' + item.id; // 상세 페이지 URL로 설정
+      titleCell.classList.add('board-title');
+      titleCell.appendChild(titleLink);
+          
+          
+          const boardTitleCell = document.createElement('td');
+          boardTitleCell.classList.add('board-board_title');
+          boardTitleCell.textContent = item.board_title;
+          
+          const placeCell = document.createElement('td');
+          placeCell.classList.add('board-place');
+          placeCell.textContent = item.place;
+          
+          const writerCell = document.createElement('td');
+          writerCell.classList.add('board-writer');
+          writerCell.textContent = item.writer;
+          
+          const viewsCell = document.createElement('td');
+          viewsCell.classList.add('board-views');
+          viewsCell.textContent = item.views;
+          
+          const likecountCell = document.createElement('td');
+          likecountCell.classList.add('board-likecount');
+          likecountCell.textContent = item.likecount;
+          
+          const writingtimeCell = document.createElement('td');
+          writingtimeCell.classList.add('board-writingtime');
+          writingtimeCell.textContent = item.writingtime;
+
+          row.appendChild(titleCell);
+          row.appendChild(boardTitleCell);
+          row.appendChild(placeCell);
+          row.appendChild(writerCell);
+          row.appendChild(viewsCell);
+          row.appendChild(likecountCell);
+          row.appendChild(writingtimeCell);
+
+          tableBody.appendChild(row);
         });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }
+      } else {
+        const row = document.createElement('tr');
+        const emptyCell = document.createElement('td');
+        emptyCell.setAttribute('colspan', '8');
+        emptyCell.textContent = '글쓴 내역이 없습니다.';
+        row.appendChild(emptyCell);
+        tableBody.appendChild(row);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
 
-  // 최근 방문한 페이지 목록을 초기화
-  function clearRecentVisitedPages() {
-    recentVisitedPagesList.innerHTML = '';
-  }
 
-  // 최근 방문한 페이지 섹션을 보여주고 목록을 가져오기
-  function showRecentVisitedPagesSection() {
-    clearRecentVisitedPages(); // 기존 목록 초기화
-    recentVisitedPagesSection.style.display = 'block'; // 섹션 보여주기
-    populateRecentVisitedPages(); // 목록 가져오기
-  }
+// 글쓴 내역 섹션 링크 클릭 시 이벤트 핸들러
+const writtenPostsLink = document.querySelector('.side-menu-nav a[href="#section2"]');
+writtenPostsLink.addEventListener('click', function(event) {
+  event.preventDefault();
+  getWrittenPosts() // 글쓴 내역 가져오는 함수 호출
+});
 
-  // 최근 방문한 페이지 섹션 링크 클릭 시 이벤트 핸들러
-  const recentVisitedPagesLink = document.querySelector('.side-menu-nav a[href="#section4"]');
-  recentVisitedPagesLink.addEventListener('click', function(event) {
-    event.preventDefault();
-    showRecentVisitedPagesSection();
-  });
+// 댓글 쓴 내역을 AJAX로 가져오는 함수
+function getCommentListByWriter() {
+  fetch('/getCommentListByWriter')
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Error: ' + response.status);
+    })
+    .then(data => {
+      console.log(data);
+      tableBody2.innerHTML = ''; // 기존의 내용을 초기화
+
+      if (data && Array.isArray(data)) {
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          
+          // 댓글 내용(<td>)을 클릭했을 때의 이벤트 핸들러 추가
+          const contentsCell = document.createElement('td');
+          const contentsLink = document.createElement('a');
+          contentsLink.textContent = item.contents;
+          contentsLink.href = '/travelspot/post?contentId=' + item.place_id; // 댓글 상세 페이지 URL로 설정
+          contentsCell.classList.add('comments-contents');
+          contentsCell.appendChild(contentsLink);
+          
+          const writerCell = document.createElement('td');
+          writerCell.textContent = item.writer;
+          
+          const writingtimeCell = document.createElement('td');
+          writingtimeCell.textContent = item.writingtime;
+          
+          const placeCell = document.createElement('td');
+          placeCell.textContent = item.place_id;
+
+          row.appendChild(contentsCell);
+          row.appendChild(writerCell);
+          row.appendChild(writingtimeCell);
+          row.appendChild(placeCell);
+
+          tableBody2.appendChild(row);
+        });
+      } else {
+        const row = document.createElement('tr');
+        const noDataCell = document.createElement('td');
+        noDataCell.colSpan = 4;
+        noDataCell.textContent = '댓글 쓴 내역이 없습니다.';
+
+        row.appendChild(noDataCell);
+        tableBody2.appendChild(row);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// 댓글 쓴 내역 섹션 링크 클릭 시 이벤트 핸들러
+const commentsLink = document.querySelector('.side-menu-nav a[href="#section3"]');
+commentsLink.addEventListener('click', function(event) {
+  event.preventDefault();
+  getCommentListByWriter(); // 댓글 쓴 내역 가져오는 함수 호출
+});
+
+// 찜한 여행지 내역을 AJAX로 가져오는 함수
+function getLikesByUserId() {
+  fetch('/getLikesByUserId')
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Error: ' + response.status);
+    })
+    .then(data => {
+      tableBody3.innerHTML = ''; // 기존의 내용을 초기화
+
+      if (data && Array.isArray(data)) {
+        data.forEach(item => {
+          const row = document.createElement('tr');
+          
+          
+          // 제목 (<td>)을 클릭했을 때의 이벤트 핸들러 추가
+          const titleCell = document.createElement('td');
+          const titleLink = document.createElement('a');
+          titleLink.textContent = item.title;
+          titleLink.href = '/travelspot/post?contentId=' + item.contentId; // 댓글 상세 페이지 URL로 설정
+          titleCell.classList.add('place-likes');
+          titleCell.appendChild(titleLink);
+          
+          
+          const addressCell = document.createElement('td');
+          addressCell.textContent = item.address;
+          
+          const viewcntCell = document.createElement('td');
+          viewcntCell.textContent = item.viewcnt;
+          
+          const likecntCell = document.createElement('td');
+          likecntCell.textContent = item.likecnt;
+
+          row.appendChild(titleCell);
+          row.appendChild(addressCell);
+          row.appendChild(viewcntCell);
+          row.appendChild(likecntCell);
+
+          tableBody3.appendChild(row);
+        });
+      } else {
+        const row = document.createElement('tr');
+        const noDataCell = document.createElement('td');
+        noDataCell.colSpan = 4;
+        noDataCell.textContent = '찜한 여행지 내역이 없습니다.';
+
+        row.appendChild(noDataCell);
+        tableBody3.appendChild(row);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// 찜한 여행지 내역 섹션 링크 클릭 시 이벤트 핸들러
+const likesLink = document.querySelector('.side-menu-nav a[href="#section5"]');
+likesLink.addEventListener('click', function(event) {
+  event.preventDefault();
+  getLikesByUserId(); // 찜한 여행지 내역 가져오는 함수 호출
+});
 });

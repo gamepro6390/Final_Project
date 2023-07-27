@@ -2,6 +2,10 @@ package User;
 
 import java.util.List;
 
+import community.BoardDTO;
+import travelspot.CommentsDTO;
+import travelspot.PlaceDTO;
+
 public interface UserService {
 
 	public void signup(UserDTO dto);
@@ -22,5 +26,18 @@ public interface UserService {
 
 	String generateTemporaryPassword();
 
-	List<String> getRecentPages(int userId);
+	List<BoardDTO> getBoardListByWriter(String writer);
+
+	List<CommentsDTO> getCommentListByWriter(String writer);
+
+	List<LikesDTO> getLikesByUserId(int user_id);
+	
+	List<UserDTO> getAllUsers(int currentPage, int usersPerPage);
+	
+	int getTotalUserCount();
+
+	public UserDTO getUserdetail(String userid);
+	
+	void deleteUser(String userid) throws Exception;
+
 }

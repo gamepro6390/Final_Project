@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;;
+import org.springframework.transaction.annotation.Transactional;
+
+import community.BoardDTO;
+import travelspot.CommentsDTO;
+import travelspot.PlaceDTO;;
 
 @Service
 
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserDAO dao;
+	
+	@Autowired
+	PlaceDAO placedao;
 
 	@Override
 	public void signup(UserDTO dto) {
@@ -57,14 +62,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO findUserPw(String userid, String email) {
-	    UserDTO dto = dao.selectfindpw(userid, email);
-	    return dto;
+		UserDTO dto = dao.selectfindpw(userid, email);
+		return dto;
 	}
-
 
 	@Override
 	@Transactional
-	public void resetPassword(String userid, String email,String temporaryPassword) {
+	public void resetPassword(String userid, String email, String temporaryPassword) {
 		UserDTO dto = dao.selectfindpw(userid, email);
 		if (dto != null) {
 			dto.setUserpw(temporaryPassword);
@@ -86,9 +90,48 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<String> getRecentPages(int userId) {
-		return dao.getRecentPages(userId);
+	public List<BoardDTO> getBoardListByWriter(String writer) {
+		return dao.getBoardListByWriter(writer);
 	}
 
+	@Override
+	public List<CommentsDTO> getCommentListByWriter(String writer) {
+		return dao.getCommentListByWriter(writer);
+	}
+    @Override
+    public List<LikesDTO> getLikesByUserId(int user_id) {
+        List<LikesDTO> likesList = dao.getLikesByUserId(user_id);
 
+        // 각 LikesDTO에 해당하는 PlaceDTO를 가져와서 설정
+        for (LikesDTO likes : likesList) {
+            int place_id = likes.getPlace_id();
+            PlaceDTO place = placedao.getPlaceById(place_id);
+            likes.setPlaceDTO(place);
+        }
+        return likesList;
+    }
+
+	@Override
+	public List<UserDTO> getAllUsers(int currentPage, int usersPerPage) {
+		int startIdx = (currentPage - 1) * usersPerPage;
+        return dao.getAllUsers(startIdx, usersPerPage);
+	}
+
+	@Override
+	public int getTotalUserCount() {
+		return dao.getTotalUserCount();
+	}
+
+	@Override
+	public UserDTO getUserdetail(String userid) {
+		return dao.getUserdetail(userid);
+	}
+
+	@Override
+	public void deleteUser(String userid) throws Exception {
+		dao.deleteUser(userid);		
+	}
+
+    
+    
 }
