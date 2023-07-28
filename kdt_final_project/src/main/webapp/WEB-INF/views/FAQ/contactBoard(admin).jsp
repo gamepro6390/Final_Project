@@ -61,7 +61,7 @@
 					<c:forEach items="${boardListForAdmin}" var="dto">
 						<tr>
 							<td class="td_title"><a href="/detailForm?id=${dto.id }">${dto.title}</a></td>
-							<td class="td_contents"><a href="/detailForm?id=${dto.id }">${dto.contents}</a></td>
+							<td class="td_contents" style="max-width:180px;"><a href="/detailForm?id=${dto.id }">${dto.contents}</a></td>
 							<td class="td_writingtime">${dto.writingtime}</td>
 							<td class="td_writer">${dto.writer}</td>
 							<td>${dto.board_title}</td>
