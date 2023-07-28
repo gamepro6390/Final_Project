@@ -90,7 +90,7 @@ li {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
-	max-width: 300px;
+	max-width: 290px;
 	text-align: center;
 	padding: 2px;
 }

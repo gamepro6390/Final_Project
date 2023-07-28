@@ -68,7 +68,7 @@
 						name="contents" readonly>${faq.contents}</textarea>
 				</div>
 
-				<div id="adminDiv2" class="form-group" style="display: none;">
+				<div id="adminDiv2" class="form-group">
 					<label for="answer">답변</label>
 					<textarea class="form-control-textarea" id="answer" name="answer"
 						readonly placeholder="아직 답변을 등록하지 않았습니다.">${faq.answer}</textarea>
@@ -203,12 +203,6 @@ function processFAQListForAdmin(faqListForAdmin) {
             adminDiv.style.display = "none";
         }
         
-        var adminDiv2 = document.getElementById("adminDiv2");
-        if (${nickname} = "admin") {
-            adminDiv2.style.display = "block";
-        } else {
-            adminDiv2.style.display = "none";
-        }
         var adminDiv3 = document.getElementById("adminDiv3");
         if (${nickname} = "admin") {
             adminDiv3.style.display = "block";

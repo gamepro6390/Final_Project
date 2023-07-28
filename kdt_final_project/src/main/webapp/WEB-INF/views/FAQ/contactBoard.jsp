@@ -18,7 +18,9 @@
 	<div class="section-container">
 		<div class="left-section">
 			<!-- 왼쪽 섹션 -->
-			<div class="categories_left"><h2>문의 분류</h2></div>
+			<div class="categories_left">
+				<h2>문의 분류</h2>
+			</div>
 			<br>
 			<div style="display: flex;">
 				<h2 id="showbtn" class="showbtn">FAQ</h2>
@@ -42,17 +44,17 @@
 		</div>
 		<div class="right-section">
 			<div class="right-section-title">
-			<h2>이용 문의</h2>
-</div>
+				<h2>이용 문의</h2>
+			</div>
 			<div class="tablearea">
-				<table>
+				<table id="dataTable">
 
 					<tr class="tr_1st">
-						<th id="title">제목</th>
-						<th>내용</th>
-						<th>작성시간</th>
-						<th>작성자</th>
-						<th>분류</th>
+						<th id="title" style="width: 90px;">제목</th>
+						<th style="width:290px;">내용</th>
+						<th style="width:100px">작성시간</th>
+						<th style="width:40px;">작성자</th>
+						<th style="width:100px;">분류</th>
 						<th>답변</th>
 					</tr>
 
@@ -63,7 +65,8 @@
 							<td class="td_writingtime">${dto.writingtime}</td>
 							<td class="td_writer">${dto.writer}</td>
 							<td>${dto.board_title}</td>
-							<td class="answerStatus" id="answerStatus">X </td>
+							<td class="answer" id="answer" style="display:none;">${dto.answer}</td>
+							<td class="answerStatus" id="answerStatus">X</td>
 							<%-- 							<td><a href="/updateForm?id=${dto.id }">수정</a></td>
 							<td onclick="deleteArticle(${dto.id})">삭제</td> --%>
 
@@ -137,9 +140,9 @@
 	}
 </script>
 <script>
-const contents = document.getElementById("answerStatus").innerText;
+const contents = document.getElementById("answer").innerText;
 
-if (contents !== "아직 답변이 등록되지 않았습니다.") {
+if (contents !== "") {
   document.getElementById("answerStatus").innerText = "O";
 }
 </script>
@@ -174,8 +177,6 @@ if (contents !== "아직 답변이 등록되지 않았습니다.") {
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		// ${dto.writer} 값이 'admin'인 경우
-			 console.log("writer 값: ", "${dto.writer}");
-
 	            // id가 "ask"인 li 요소의 글자 변경
 	            var askLi = document.getElementById("ask");
 		if ("${dto.writer}" == 'admin') {
@@ -199,7 +200,7 @@ function fetchFAQListForAdmin() {
             processFAQListForAdmin(faqListForAdmin);
         },
         error: function(error) {
-            console.error('데이터를 불러오는 데 실패했습니다.');
+        	console.log("일반 계정으로 로그인했습니다.")
         }
     });
 }
@@ -225,5 +226,36 @@ $(document).ready(function() {
     fetchFAQListForAdmin();
 });
 
+</script>
+
+<script>
+function updateAnswerStatus() {
+	// Get the table element by its ID
+  const table = document.getElementById('dataTable');
+  
+  // Get all the rows of the table, excluding the header row (index 0)
+  const rows = table.getElementsByTagName('tr');
+
+  // Loop through each row starting from index 1 (to exclude header row)
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i];
+    const answerCell = row.cells[5]; // Index of the cell containing the answer value
+	const answerValueCell = row.cells[6]
+ 
+    // Get the value of the answer from the cell
+    const answerValue = answerCell.innerText.trim();
+
+    // Check if the answer is not an empty string
+    if (answerValue !== "") {
+      // Update the content of the cell with 'O'
+      answerValueCell.innerText = "O";
+    }
+  }
+}
+
+// Call the function after the page has loaded
+window.onload = function() {
+  updateAnswerStatus();
+};
 </script>
 </html>

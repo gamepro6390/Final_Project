@@ -59,4 +59,11 @@ public class FAQServiceImpl implements FAQService {
 		return faqDAO.getBoardById2(id);
     }
 
+    public List<FAQDTO> getFAQListForAdmin(int startIdx, int count) {
+        return faqDAO.selectFAQListForAdmin(startIdx, count);
+    }
+
+    public int getTotalFAQCount() {
+        return faqDAO.selectTotalFAQCount();
+    }
 }

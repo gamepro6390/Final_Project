@@ -35,6 +35,16 @@
 		</if>
 	</select>
 
+	<select id="selectTotalFAQCount" resultType="int">
+		SELECT COUNT(*) FROM board where(
+		board_title='일반' or
+		board_title='신고/이용제한' or
+		board_title='기타' or
+		board_title='가입 변경/탈퇴' or
+		board_title='프로필 관련'
+		);
+	</select>
+
 	<select id="answer">
 		SELECT answer FROM board WHERE(
 		board_title='일반' or

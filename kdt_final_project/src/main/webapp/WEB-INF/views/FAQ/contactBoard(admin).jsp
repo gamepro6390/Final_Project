@@ -48,11 +48,11 @@
 				<h2>이용 문의</h2>
 			</div>
 			<div class="tablearea">
-				<table>
+				<table id="dataTable">
 
 					<tr class="tr_1st">
-						<th id="title">제목</th>
-						<th>내용</th>
+						<th id="title"style="width:90px;">제목</th>
+						<th style="width:220px;">내용</th>
 						<th>작성시간</th>
 						<th>작성자</th>
 						<th>분류</th>
@@ -62,7 +62,7 @@
 					<c:forEach items="${boardListForAdmin}" var="dto">
 						<tr>
 							<td class="td_title"><a href="/detailForm?id=${dto.id }">${dto.title}</a></td>
-							<td class="td_contents" style="max-width: 180px;"><a
+							<td class="td_contents" style="max-width:220px;"><a
 								href="/detailForm?id=${dto.id }">${dto.contents}</a></td>
 							<td class="td_writingtime">${dto.writingtime}</td>
 							<td class="td_writer">${dto.writer}</td>
@@ -70,7 +70,8 @@
 							<td class="td_answer" id="td_answer" style="display: none;">${dto.answer}</td>
 							<td class="answerStatus" id="answerStatus">X</td>
 							<td><a href="/updateForm?id=${dto.id }">수정</a></td>
-							<td onclick="deleteArticle(${dto.id})" style="font-size:10px; font-weight:bold">삭제</td>
+							<td onclick="deleteArticle(${dto.id})"
+								style="font-size: 10px; font-weight: bold">삭제</td>
 							<%-- <td><c:out value="${dto.imageFileName}"/></td> --%>
 
 						</tr>
@@ -80,6 +81,20 @@
 				</table>
 			</div>
 
+<%-- 			<!-- 이전 페이지 버튼 -->
+			<button onclick="loadPage(${currentPage - 1})"
+				${currentPage == 1 ? 'disabled' : ''}>이전 페이지</button>
+
+			<!-- 페이지 번호 버튼 -->
+			<c:forEach var="pageNum" begin="1" end="${totalPages}">
+				<button onclick="loadPage(${pageNum})"
+					${pageNum == currentPage ? 'disabled' : ''}>${pageNum}</button>
+			</c:forEach>
+
+			<!-- 다음 페이지 버튼 -->
+			<button onclick="loadPage(${currentPage + 1})"
+				${currentPage == totalPages ? 'disabled' : ''}>다음 페이지</button>
+ --%>
 
 		</div>
 
@@ -139,11 +154,40 @@
 	}
 </script>
 <script>
-        var contents = document.getElementById("td_answer").innerText;
-        if (contents !== "아직 답변이 등록되지 않았습니다.") {
-          document.getElementById("answerStatus").innerText = "O";
-        }
-        </script>
+function updateAnswerStatus() {
+	// Get the table element by its ID
+  const table = document.getElementById('dataTable');
+  
+  // Get all the rows of the table, excluding the header row (index 0)
+  const rows = table.getElementsByTagName('tr');
+
+  // Loop through each row starting from index 1 (to exclude header row)
+  for (let i = 1; i < rows.length; i++) {
+    const row = rows[i];
+    const answerCell = row.cells[5]; // Index of the cell containing the answer value
+	const answerValueCell = row.cells[6]
+    
+    // Get the value of the answer from the cell
+    const answerValue = answerCell.innerText.trim();
+
+    // Check if the answer is not an empty string
+    if (answerValue !== "") {
+      // Update the content of the cell with 'O'
+      answerValueCell.innerText = "O";
+    }
+  }
+}
+
+// Call the function after the page has loaded
+window.onload = function() {
+  updateAnswerStatus();
+};
+</script>
+
+
+
+
+
 <!-- 관리자로 로그인하면 숨겨진 메뉴 나타나기 -->
 <script>
 // 서버에서 데이터를 가져오는 함수
@@ -215,5 +259,36 @@ $(document).ready(function() {
 		showbtn_img.style.transform = "scaleY(1)";
 	});
 </script>
+
+<!-- <script>
+    var currentPage = 1;
+    var totalPages = ${totalPages};
+
+    function loadPage(pageNum) {
+        // 페이지 번호가 유효한 범위인지 확인
+        if (pageNum >= 1 && pageNum <= totalPages) {
+            // AJAX를 사용하여 해당 페이지의 게시물을 가져옴
+            $.ajax({
+                url: '/selectFAQsForAdmin',
+                method: 'GET',
+                data: {
+                    pageNum: pageNum
+                },
+                success: function(response) {
+                    // 받아온 데이터를 화면에 출력하거나 필요한 작업 수행
+                    // 여기서는 예시로 콘솔에 출력하는 것으로 대체
+                    console.log(response);
+                    currentPage = pageNum;
+                },
+                error: function(error) {
+                    console.error('데이터를 불러오는 데 실패했습니다.');
+                }
+            });
+        }
+    }
+
+    // 페이지 로딩 시 초기 데이터를 불러옵니다.
+    loadPage(currentPage);
+</script> -->
 
 </html>

@@ -1,6 +1,8 @@
 package FAQ;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +62,16 @@ public class FAQDAOImpl implements FAQDAO {
 		// id에 따라 값을 받아와 board객체에 저장?
 		return sqlSession.selectOne("getBoardById", id);
 	}
+	
+    public List<FAQDTO> selectFAQListForAdmin(int startIdx, int count) {
+        Map<String, Object> param = new HashMap<>();
+        param.put("startIdx", startIdx);
+        param.put("count", count);
+        return sqlSession.selectList("faq.selectFAQListForAdmin", param);
+    }
+
+    public int selectTotalFAQCount() {
+        return sqlSession.selectOne("faq.selectTotalFAQCount");
+    }
 
 }

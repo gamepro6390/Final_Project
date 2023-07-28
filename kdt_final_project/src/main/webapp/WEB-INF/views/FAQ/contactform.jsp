@@ -101,12 +101,12 @@
 							placeholder="내용을 입력하세요(4000자 이내)" required></textarea>
 					</div>
 
-					<div>파일 첨부</div>
+			<!-- 		<div>파일 첨부</div>
 					<label for="attachment-input" class="custom-file-button"
 						id="file-name-display">첨부할 파일을 선택하세요 <input type="file"
 						class="form-control-attachment" id="attachment-input"
 						name="imageFileName" accept='image/*'>
-					</label>
+					</label> -->
 					<!-- <span id="file-cancel-button" class="file-cancel-button" style="display: none;">파일 선택 취소</span>
  -->
 

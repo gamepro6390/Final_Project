@@ -137,12 +137,35 @@ public class FAQController {
 		return "/FAQ/contactBoard";
 	}
 
+	private static final int PAGE_SIZE = 10;
+
+	@RequestMapping("/selectFAQsForAdmin")
+	@ResponseBody
+	public List<FAQDTO> selectFAQsForAdmin(@RequestParam("pageNum") int pageNum) {
+		// 전체 게시물 개수를 가져옵니다.
+		int totalRecords = faqService.getTotalFAQCount();
+
+		// 전체 페이지 개수를 계산합니다.
+		int totalPages = (int) Math.ceil((double) totalRecords / PAGE_SIZE);
+
+		// 유효한 페이지 번호를 확인합니다.
+		if (pageNum < 1) {
+			pageNum = 1;
+		} else if (pageNum > totalPages) {
+			pageNum = totalPages;
+		}
+
+		// 해당 페이지의 게시물을 가져옵니다.
+		List<FAQDTO> faqList = faqService.getFAQListForAdmin((pageNum - 1) * PAGE_SIZE, PAGE_SIZE);
+
+		return faqList;
+	}
+
 
 	@GetMapping("/selectAllFAQsForAdmin")
 	@ResponseBody
 	public List<FAQDTO> selectAllFAQsForAdmin(HttpServletRequest request) {
 		UserDTO user = (UserDTO) request.getSession().getAttribute("user");
-
 		List<FAQDTO> FAQListForAdmin = faqDAO.selectAllFAQsForAdmin(user.getNickname());
 		return FAQListForAdmin;
 	}
@@ -272,6 +295,7 @@ public class FAQController {
 
 		return "/FAQ/detailForm";
 	}
+
 	@RequestMapping("/viewForm01")
 	public String viewForm01(@RequestParam("id") int id, HttpSession session, Model model) {
 		UserDTO user = (UserDTO) session.getAttribute("user");
@@ -291,6 +315,7 @@ public class FAQController {
 
 		return "/FAQ/contactform_FAQ01";
 	}
+
 	@RequestMapping("/viewForm02")
 	public String viewForm02(@RequestParam("id") int id, HttpSession session, Model model) {
 		UserDTO user = (UserDTO) session.getAttribute("user");
@@ -310,6 +335,7 @@ public class FAQController {
 
 		return "/FAQ/contactform_FAQ02";
 	}
+
 	@RequestMapping("/viewForm03")
 	public String viewForm03(@RequestParam("id") int id, HttpSession session, Model model) {
 		UserDTO user = (UserDTO) session.getAttribute("user");
@@ -329,6 +355,7 @@ public class FAQController {
 
 		return "/FAQ/contactform_FAQ03";
 	}
+
 	@RequestMapping("/viewForm04")
 	public String viewForm04(@RequestParam("id") int id, HttpSession session, Model model) {
 		UserDTO user = (UserDTO) session.getAttribute("user");
