@@ -44,8 +44,9 @@
 
 		<!-- 오른쪽 섹션 -->
 		<div class="right-section">
-			<h2>이용 문의</h2>
-
+			<div class="right-section-title">
+				<h2>이용 문의</h2>
+			</div>
 			<div class="tablearea">
 				<table>
 
@@ -61,14 +62,15 @@
 					<c:forEach items="${boardListForAdmin}" var="dto">
 						<tr>
 							<td class="td_title"><a href="/detailForm?id=${dto.id }">${dto.title}</a></td>
-							<td class="td_contents" style="max-width:180px;"><a href="/detailForm?id=${dto.id }">${dto.contents}</a></td>
+							<td class="td_contents" style="max-width: 180px;"><a
+								href="/detailForm?id=${dto.id }">${dto.contents}</a></td>
 							<td class="td_writingtime">${dto.writingtime}</td>
 							<td class="td_writer">${dto.writer}</td>
 							<td>${dto.board_title}</td>
 							<td class="td_answer" id="td_answer" style="display: none;">${dto.answer}</td>
 							<td class="answerStatus" id="answerStatus">X</td>
 							<td><a href="/updateForm?id=${dto.id }">수정</a></td>
-							<td onclick="deleteArticle(${dto.id})">삭제</td>
+							<td onclick="deleteArticle(${dto.id})" style="font-size:10px; font-weight:bold">삭제</td>
 							<%-- <td><c:out value="${dto.imageFileName}"/></td> --%>
 
 						</tr>

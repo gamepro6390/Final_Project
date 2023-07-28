@@ -74,13 +74,17 @@
 						readonly placeholder="아직 답변을 등록하지 않았습니다.">${faq.answer}</textarea>
 				</div>
 
-				<div
-					style="display: flex; text-align: right; float: right; width: 30%">
-					<h2>
-						<a href="/updateForm?id=${faq.id }" style="font-size: 16px">수정</a>
-					</h2>
-					<h2 onclick="deleteArticle(${faq.id})">삭제</h2>
-					<div id="adminDiv2" style="display: none;">
+				<div 
+					style="display: flex; float: right;  margin-right:-40px;">
+					<div class="form-group-btns">
+						<h2>
+							<a href="/updateForm?id=${faq.id }" style="font-size: 16px">수정</a>
+						</h2>
+					</div>
+					<div class="form-group-btns">
+						<h2 onclick="deleteArticle(${faq.id})">삭제</h2>
+					</div>
+					<div id="adminDiv3" style="display: none;" class="form-group-btns">
 						<h2>
 							<a href="/answerForm?id=${faq.id }" style="font-size: 16px">
 								답변</a>
@@ -204,6 +208,12 @@ function processFAQListForAdmin(faqListForAdmin) {
             adminDiv2.style.display = "block";
         } else {
             adminDiv2.style.display = "none";
+        }
+        var adminDiv3 = document.getElementById("adminDiv3");
+        if (${nickname} = "admin") {
+            adminDiv3.style.display = "block";
+        } else {
+            adminDiv3.style.display = "none";
         }
     }
 }

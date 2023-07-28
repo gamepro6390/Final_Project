@@ -41,8 +41,9 @@
 			</div>
 		</div>
 		<div class="right-section">
+			<div class="right-section-title">
 			<h2>이용 문의</h2>
-
+</div>
 			<div class="tablearea">
 				<table>
 
