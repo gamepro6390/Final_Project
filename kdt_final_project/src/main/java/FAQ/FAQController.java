@@ -226,7 +226,6 @@ public class FAQController {
 
 		// postId를 사용하여 데이터베이스에서 해당 글의 정보를 조회합니다.
 		BoardDTO existingFAQ = faqDAO.getBoardById2(id);
-	    System.out.println("existingFAQ 값은 = " + existingFAQ);
 		// 해당 글의 작성자와 현재 사용자가 동일한지 확인하여 권한을 체크할 수도 있습니다.
 		if (user.getNickname().equals("admin")) {
 			model.addAttribute("nickname", user.getNickname());
@@ -273,5 +272,80 @@ public class FAQController {
 
 		return "/FAQ/detailForm";
 	}
+	@RequestMapping("/viewForm01")
+	public String viewForm01(@RequestParam("id") int id, HttpSession session, Model model) {
+		UserDTO user = (UserDTO) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
 
+		// postId를 사용하여 데이터베이스에서 해당 글의 정보를 조회합니다.
+		BoardDTO existingFAQ = faqDAO.getBoardById2(id);
+		// 해당 글의 작성자와 현재 사용자가 동일한지 확인하여 권한을 체크할 수도 있습니다.
+		if (user.getNickname().equals("admin")) {
+			model.addAttribute("nickname", user.getNickname());
+		} else if (!user.getNickname().equals(existingFAQ.getWriter()) && !user.getNickname().equals("admin")) {
+			return "redirect:/error"; // 예를 들어 수정 권한이 없을 경우 오류 페이지로 리다이렉트
+		}
+		model.addAttribute("faq", existingFAQ);
+
+		return "/FAQ/contactform_FAQ01";
+	}
+	@RequestMapping("/viewForm02")
+	public String viewForm02(@RequestParam("id") int id, HttpSession session, Model model) {
+		UserDTO user = (UserDTO) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		// postId를 사용하여 데이터베이스에서 해당 글의 정보를 조회합니다.
+		BoardDTO existingFAQ = faqDAO.getBoardById2(id);
+		// 해당 글의 작성자와 현재 사용자가 동일한지 확인하여 권한을 체크할 수도 있습니다.
+		if (user.getNickname().equals("admin")) {
+			model.addAttribute("nickname", user.getNickname());
+		} else if (!user.getNickname().equals(existingFAQ.getWriter()) && !user.getNickname().equals("admin")) {
+			return "redirect:/error"; // 예를 들어 수정 권한이 없을 경우 오류 페이지로 리다이렉트
+		}
+		model.addAttribute("faq", existingFAQ);
+
+		return "/FAQ/contactform_FAQ02";
+	}
+	@RequestMapping("/viewForm03")
+	public String viewForm03(@RequestParam("id") int id, HttpSession session, Model model) {
+		UserDTO user = (UserDTO) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		// postId를 사용하여 데이터베이스에서 해당 글의 정보를 조회합니다.
+		BoardDTO existingFAQ = faqDAO.getBoardById2(id);
+		// 해당 글의 작성자와 현재 사용자가 동일한지 확인하여 권한을 체크할 수도 있습니다.
+		if (user.getNickname().equals("admin")) {
+			model.addAttribute("nickname", user.getNickname());
+		} else if (!user.getNickname().equals(existingFAQ.getWriter()) && !user.getNickname().equals("admin")) {
+			return "redirect:/error"; // 예를 들어 수정 권한이 없을 경우 오류 페이지로 리다이렉트
+		}
+		model.addAttribute("faq", existingFAQ);
+
+		return "/FAQ/contactform_FAQ03";
+	}
+	@RequestMapping("/viewForm04")
+	public String viewForm04(@RequestParam("id") int id, HttpSession session, Model model) {
+		UserDTO user = (UserDTO) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/login";
+		}
+
+		// postId를 사용하여 데이터베이스에서 해당 글의 정보를 조회합니다.
+		BoardDTO existingFAQ = faqDAO.getBoardById2(id);
+		// 해당 글의 작성자와 현재 사용자가 동일한지 확인하여 권한을 체크할 수도 있습니다.
+		if (user.getNickname().equals("admin")) {
+			model.addAttribute("nickname", user.getNickname());
+		} else if (!user.getNickname().equals(existingFAQ.getWriter()) && !user.getNickname().equals("admin")) {
+			return "redirect:/error"; // 예를 들어 수정 권한이 없을 경우 오류 페이지로 리다이렉트
+		}
+		model.addAttribute("faq", existingFAQ);
+
+		return "/FAQ/contactform_FAQ04";
+	}
 }

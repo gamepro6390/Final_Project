@@ -65,7 +65,7 @@
 							<td class="td_writingtime">${dto.writingtime}</td>
 							<td class="td_writer">${dto.writer}</td>
 							<td>${dto.board_title}</td>
-							<td class="td_answer" id=style="display: none;">${dto.answer}</td>
+							<td class="td_answer" id="td_answer" style="display: none;">${dto.answer}</td>
 							<td class="answerStatus" id="answerStatus">X</td>
 							<td><a href="/updateForm?id=${dto.id }">수정</a></td>
 							<td onclick="deleteArticle(${dto.id})">삭제</td>
@@ -138,7 +138,6 @@
 </script>
 <script>
         var contents = document.getElementById("td_answer").innerText;
-        console.log(${dto.answer})
         if (contents !== "아직 답변이 등록되지 않았습니다.") {
           document.getElementById("answerStatus").innerText = "O";
         }

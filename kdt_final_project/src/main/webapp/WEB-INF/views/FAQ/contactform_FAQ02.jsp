@@ -209,13 +209,9 @@ function processFAQListForAdmin(faqListForAdmin) {
     for (var i = 0; i < faqListForAdmin.length; i++) {
 /*     	var nickname = ${nickname}; */
         var dto = faqListForAdmin[i];
-        // dto 객체를 이용하여 필요한 작업을 수행합니다.
-        console.log(dto.id);
-        console.log(dto.writer);
-        console.log(dto.title);
         // dto.writer 값을 사용하여 숨겨진 div 보이기/숨기기 작업을 수행합니다.
         var adminDiv = document.getElementById("adminDiv");
-        if (${nickname} = "admin") {
+        if (dto.writer = "admin") {
             adminDiv.style.display = "block";
         } else {
             adminDiv.style.display = "none";
