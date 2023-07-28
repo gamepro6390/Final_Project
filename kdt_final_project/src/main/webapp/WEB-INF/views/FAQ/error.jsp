@@ -7,8 +7,7 @@
     <script>
         // alert를 띄우는 JavaScript 코드
         window.onload = function () {
-            alert("삭제가 완료되었습니다.");
-            window.location.reload(); // 페이지 새로고침
+            alert("글을 조회하거나 수정할 권한이 없습니다.");
             window.location.href = "/selectFAQs"; // 글 목록 페이지로 리다이렉트
         };
     </script>

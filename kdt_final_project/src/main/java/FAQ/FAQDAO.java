@@ -9,6 +9,11 @@ public interface FAQDAO {
 
 	List<FAQDTO> selectAllFAQs(String writer);
 
+	List<FAQDTO> selectAllFAQsForAdmin(String writer);
+	
+	BoardDTO answer(int id);
+	
+	
 	void deleteArticleById(int id);
 	
 	void updateFAQ(BoardDTO dto);

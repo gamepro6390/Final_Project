@@ -41,8 +41,8 @@ if (login==null){%>
 <a href="/travelspot/list"><div class="menu" >여행지 추천</div></a>
 <a href="/community"><div class="menu" >커뮤니티</div></a>
 <a href="/mypage"><div class="menu" >마이페이지</div></a>
-<a href="/FAQ"><div class="menu" >고객센터</div></a>
-<a href="/FAQ"><div class="menu" >착한가게</div></a>
+<a href="/FAQ01"><div class="menu" >고객센터</div></a>
+<a href="/FAQ01"><div class="menu" >착한가게</div></a>
 <br><br>
 </div>
 </div> 

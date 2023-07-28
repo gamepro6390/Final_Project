@@ -30,6 +30,18 @@ public class FAQServiceImpl implements FAQService {
 	
 	@Override
 	@Transactional
+	public List<FAQDTO> selectAllFAQsForAdmin(String writer) {
+		return faqDAO.selectAllFAQsForAdmin(writer);
+	}
+	
+	@Override
+	@Transactional
+	public BoardDTO answer(int id) {
+		return faqDAO.answer(id);
+	}
+	
+	@Override
+	@Transactional
     public void deleteArticleById(int id) {
         // DAO를 사용하여 게시물 삭제하기
         faqDAO.deleteArticleById(id);

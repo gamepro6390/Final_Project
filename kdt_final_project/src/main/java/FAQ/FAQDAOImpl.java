@@ -29,6 +29,15 @@ public class FAQDAOImpl implements FAQDAO {
 		return sqlSession.selectList("selectAllFAQs",writer); // SQL 매핑된 쿼리를 실행하여 Board 목록을 가져옴
 	}
 
+	@Override
+	public List<FAQDTO> selectAllFAQsForAdmin(String writer) {
+		return sqlSession.selectList("selectAllFAQsForAdmin",writer); // SQL 매핑된 쿼리를 실행하여 Board 목록을 가져옴
+	}
+	
+	@Override
+	public BoardDTO answer(int id) {
+		return sqlSession.selectOne("answer",id); // SQL 매핑된 쿼리를 실행하여 Board 목록을 가져옴
+	}
 
 	/*
 	 * @Override public String getWriterById(int id) { // 게시물 작성자 정보를 가져오는 SQL 쿼리를
