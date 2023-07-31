@@ -60,7 +60,7 @@
 				<div class="form-group">
 					<label for="title">제목</label>
 					<textarea class="form-control" id="title" name="title"
-						placeholder="제목을 입력하세요" readonly>"${faq.title}"</textarea>
+						placeholder="제목을 입력하세요" readonly>${faq.title}</textarea>
 				</div>
 				<div class="form-group">
 					<label for="contents">문의 내용</label>

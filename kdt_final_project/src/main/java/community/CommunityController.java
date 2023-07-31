@@ -2,6 +2,7 @@ package community;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import User.UserDTO;
 import jakarta.servlet.http.HttpServletRequest;
+import travelspot.PlaceDTO;
 
 @Controller
 public class CommunityController {
@@ -143,7 +146,40 @@ public class CommunityController {
 	    return "board/delete";
 	}
 
-	
+	@RequestMapping("/community/search")
+	public ModelAndView searchBoard(
+			@RequestParam(value="item", required=false, defaultValue="지역")String item, 
+			@RequestParam(value="searchword", required=false, defaultValue="")String searchword, 
+			@RequestParam(value="page", required=false, defaultValue="1")int page) {
+
+		// 검색 조건으로 검색한 게시글 리스트, 게시글수
+		HashMap<String, Object> map = new HashMap<>();
+
+		if (item.equals("지역")) {
+			map.put("colname", "place");
+		}
+		if (item.equals("제목")) {
+			map.put("colname", "title");
+		}
+		if (item.equals("작성자")) {
+			map.put("colname", "writer");
+		}
+		
+		map.put("searchitem", item);
+		map.put("colvalue", "%"+searchword+"%");
+		map.put("limitindex",(page-1)*9 );
+		map.put("limitcount",9);
+		
+		List<BoardDTO> boardList = boardService.searchBoard(map);
+		int totalCnt = boardService.searchBoardCnt(map);
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("boardList", boardList);
+		mv.addObject("searchmap", map);
+		mv.addObject("totalCnt", totalCnt);
+		mv.setViewName("community_search");
+		return mv;
+	}
 
 
 }

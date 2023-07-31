@@ -67,7 +67,8 @@
 						placeholder="제목을 입력하세요" value="${faq.title}" required>
 				</div>
 				<div class="form-group">
-					<label for="title">문의 내용</label> <input maxlength="4000"
+					<label for="title">문의 내용</label> 
+					<input maxlength="4000"
 						class="form-control-textarea" type="text" id="contents"
 						name="contents" value="${faq.contents}" placeholder="내용을 입력하세요"
 						required>
@@ -196,9 +197,6 @@ function processFAQListForAdmin(faqListForAdmin) {
 /*     	var nickname = ${nickname}; */
         var dto = faqListForAdmin[i];
         // dto 객체를 이용하여 필요한 작업을 수행합니다.
-        console.log(dto.id);
-        console.log(dto.writer);
-        console.log(dto.title);
         // dto.writer 값을 사용하여 숨겨진 div 보이기/숨기기 작업을 수행합니다.
         var adminDiv = document.getElementById("adminDiv");
         if (${nickname} = "admin") {

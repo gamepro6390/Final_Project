@@ -54,7 +54,7 @@
 						<th style="width:290px;">내용</th>
 						<th style="width:100px">작성시간</th>
 						<th style="width:40px;">작성자</th>
-						<th style="width:100px;">분류</th>
+						<th>분류</th>
 						<th>답변</th>
 					</tr>
 

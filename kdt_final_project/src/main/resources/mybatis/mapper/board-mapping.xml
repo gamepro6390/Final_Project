@@ -50,4 +50,17 @@
 	WHERE id = #{boardId}
 </update>
 
+<!-- 게시글 검색 -->
+<select id="searchBoard" parameterType="hashmap" resultType="boarddto">
+	select id, place, title, writer, views, likecount, writingtime, board_title
+	from board where ${colname} like #{colvalue}
+	and place is not null
+	limit #{limitindex},#{limitcount}
+</select>
+
+<!-- 검색된 게시글 수 -->
+<select id="searchBoardCnt" parameterType="hashmap" resultType="int">
+	select count(*) from board where ${colname} like #{colvalue}
+</select>
+
 </mapper>

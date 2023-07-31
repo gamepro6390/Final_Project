@@ -53,9 +53,9 @@
 					<tr class="tr_1st">
 						<th id="title"style="width:90px;">제목</th>
 						<th style="width:220px;">내용</th>
-						<th>작성시간</th>
-						<th>작성자</th>
-						<th>분류</th>
+						<th style="width:100px">작성시간</th>
+						<th style="width:40px;">작성자</th>
+						<th style="width:100px;">분류</th>
 						<th>답변</th>
 					</tr>
 

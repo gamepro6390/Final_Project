@@ -1,10 +1,13 @@
 package community;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import travelspot.PlaceDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -53,4 +56,13 @@ public class BoardServiceImpl implements BoardService {
         return boardDAO.getNewestBoards();
     }
 
+	@Override
+	public List<BoardDTO> searchBoard(HashMap<String, Object> map) {
+		return boardDAO.searchBoard(map);
+	}
+	
+	@Override
+	public int searchBoardCnt(HashMap<String, Object> map) {
+		return boardDAO.searchBoardCnt(map);
+	}
 }
