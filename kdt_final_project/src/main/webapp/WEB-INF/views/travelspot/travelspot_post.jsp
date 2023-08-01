@@ -41,7 +41,7 @@
 <div style="position:fixed; bottom:3%; right:-10%;">
 <a href="#"><img src="../img/top.png" width="5%" height="5%"></a></div>
 <div style="position: fixed; bottom: 10%; right:-18%;">
-<a href="#" onclick="history.back()"><img src="../img/prev.png" width="5%" height="5%"></a>
+<a href="#" onclick="location.href = document.referrer;"><img src="../img/prev.png" width="5%" height="5%"></a>
 </div>
 <!-- 개선사항 -->
 <!-- 버튼: 좋아요 (신고버튼) -->

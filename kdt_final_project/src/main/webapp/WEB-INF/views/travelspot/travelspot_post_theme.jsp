@@ -42,7 +42,7 @@
 <a href="#"><img src="../img/top.png" width="5%" height="5%"></a>
 </div>
 <div style="position: fixed; bottom: 10%; right:-18%;">
-<a href="#" onclick="history.back()"><img src="../img/prev.png" width="5%" height="5%"></a>
+<a href="#" onclick="location.href = document.referrer;"><img src="../img/prev.png" width="5%" height="5%"></a>
 </div>
 <!-- 개선사항 -->
 <!-- 여행지 사진 모아보기 아래 구분선만 색 변경x -->
