@@ -223,6 +223,8 @@ public class PlaceController {
 	public ModelAndView showThemePost(@RequestParam int contentId, HttpSession session) {
 		PlaceDTO placedto = placeservice.selectPlace(contentId);
 		
+		placeservice.plusViewCount(contentId);//조회수 증가
+
 		ModelAndView mv = new ModelAndView();
 		
 		UserDTO userdto = (UserDTO)session.getAttribute("user");
