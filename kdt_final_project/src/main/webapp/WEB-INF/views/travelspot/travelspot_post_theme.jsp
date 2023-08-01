@@ -21,6 +21,7 @@
 <!-- 관광명소이름 -->
 <div class="font_title margin"> ${placedto.title}
 <img src="../img/heart (2).png" id="like" style="float:right">
+<img src="../img/share.png" width=30vw height=30vh style="float: right" id="share">
 <input type="hidden" id="like_id" value="${userdto}"/>
 
 </div>
@@ -41,7 +42,7 @@
 <a href="#"><img src="../img/top.png" width="5%" height="5%"></a>
 </div>
 <div style="position: fixed; bottom: 10%; right:-18%;">
-<a href="/travelspot/list_theme?theme=alone"><img src="../img/prev.png" width="5%" height="5%"></a>
+<a href="#" onclick="history.back()"><img src="../img/prev.png" width="5%" height="5%"></a>
 </div>
 <!-- 개선사항 -->
 <!-- 여행지 사진 모아보기 아래 구분선만 색 변경x -->

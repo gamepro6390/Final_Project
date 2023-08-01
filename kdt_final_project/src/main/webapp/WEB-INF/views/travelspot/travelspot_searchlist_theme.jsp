@@ -38,6 +38,11 @@
 	</div>
 	<br>
 
+	<% 
+	String searchword2 = String.valueOf(request.getAttribute("searchword")); 
+	searchword2 = searchword2.replaceAll("%", "");
+	%>
+	
 	<!-- 검색창 -->
 	<form action="/travelspot/themesearch" method="get" class="search-form">
 		<select name="item" id="selectItem" class="search-item">
@@ -45,7 +50,7 @@
 			<option value="title">장소명</option>
 			<option value="address">주소</option>
 		</select> <br> <input type="text" id="search-input" name="searchword"
-			class="search-input" placeholder="검색어를 입력하세요"> <input
+			class="search-input" placeholder=<%=searchword2 %>> <input
 			type="submit" value="검색" class="search-button">
 	</form>
 

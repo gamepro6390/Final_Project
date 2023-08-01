@@ -81,6 +81,7 @@ public class PlaceController {
 			mv.addObject("placelist", placelist);
 			mv.addObject("searchmap", map);
 			mv.addObject("totalCnt", totalCnt);
+			mv.addObject("searchword",searchword);
 			mv.addObject("page", page);
 			mv.setViewName("/travelspot/travelspot_searchlist");
 			return mv;
@@ -210,6 +211,7 @@ public class PlaceController {
 			
 			ModelAndView mv = new ModelAndView();
 			mv.addObject("placelist", placelist);
+			mv.addObject("searchword",searchword);
 			mv.addObject("searchmap", map);
 			mv.addObject("totalCnt", totalCnt);
 			mv.addObject("page", page);
