@@ -38,7 +38,7 @@
 			<select id="printtype" name="printtype">
 				<option value="like">인기순</option>
 				<option value="newest">최신순</option>
-			</select>
+			</select> 
 		</form> -->
 
 		<article id="record" class="on">
