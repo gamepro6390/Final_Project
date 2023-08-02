@@ -7,11 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>위트</title>
-<script src="http://localhost:8099/js/jquery-3.6.4.min.js"></script>
+<script src="/js/jquery-3.6.4.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a02700d6a520b1b4d23a9886f1160e0"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9a02700d6a520b1b4d23a9886f1160e0&libraries=services,clusterer,drawing"></script>
-<script src="http://localhost:8099/js/travelspot/travelspot_post.js"></script>
-<script src="http://localhost:8099/js/travelspot/travelspot_comment.js"></script>
+<script src="/js/travelspot/travelspot_post.js"></script>
+<script src="/js/travelspot/travelspot_comment.js"></script>
 
 <link href="/css/travelspot/import.css" rel="stylesheet" type="text/css"/>
 
@@ -42,9 +42,9 @@
 <a href="#"><img src="../img/top.png" width="5%" height="5%"></a></div>
 <div style="position: fixed; bottom: 10%; right:-18%;">
 <a href="#" onclick="location.href = document.referrer;"><img src="../img/prev.png" width="5%" height="5%"></a>
+<!-- location.href = document.referrer; 뒤로가기 후 새로고침이 필요할때 사용 -->
 </div>
-<!-- 개선사항 -->
-<!-- 버튼: 좋아요 (신고버튼) -->
+
 
 <%@ include file="../home/footer.jsp"%>
 
