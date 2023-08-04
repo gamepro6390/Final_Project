@@ -22,6 +22,7 @@ $(document).ready(function(){
 	
 	$(".placeLocation").click(function(){
 		let contentId = $(this).attr("id");
+
 		location.href="/travelspot/post?contentId="+contentId//이동		
 	});
 	

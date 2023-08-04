@@ -25,7 +25,7 @@ $(document).ready(function() {
 <%@ include file="../home/header.jsp" %>
 </header>
 <hr style="width: 66vw; margin: 0 auto;">
-<form id="reportCommentForm" action="/travelspot/post/comments/report" method="post">
+<form id="reportCommentForm" action="/travelspot/comments_report" method="post">
 <div id="reportComment">
 <div class="font_title">댓글 신고창<hr><br>
 <div class="readonly">작성된 댓글 번호</div><input type="text" name="commentId" class="readonlyinput" value="${commentid }" readonly ><br>

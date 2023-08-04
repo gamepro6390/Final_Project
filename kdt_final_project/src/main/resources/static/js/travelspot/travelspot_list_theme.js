@@ -17,7 +17,6 @@ $(document).ready(function(){
 		//$(this).css("color","#2463d3"); 
 		let contentId = $(this).attr("id");
 		location.href="/travelspot/themepost?contentId="+contentId//이동
-		
 	})
 	
 	if($("#selectItem").val()=="title"){		

@@ -10,8 +10,8 @@
 <link rel="stylesheet" type="text/css" href="css/reset.css" />
 <link rel="stylesheet" type="text/css" href="css/detail.css" />
 
-<script src="http://localhost:8099/js/jquery-3.6.4.min.js"></script>
-<script src="http://localhost:8099/js/community/comment.js"></script>
+<script src="/js/jquery-3.6.4.min.js"></script>
+<script src="/js/community/comment.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -50,11 +50,15 @@
     		this.classList.toggle("likeon");
     	}); */
     	
+    	const boardId = ${board.id};
+    	//console.log(boardId);
+    	
     	// 좋아요 상태를 확인하고 로그인 상태를 체크하는 함수
         function checkLoginAndHandleLike(boardId) {
             $.ajax({
-                url: "/api/getLikeStatus?boardId=" + boardId,
+                url: "/api/getLikeStatus",
                 method: "GET",
+                data: {"boardId": boardId},
                 success: function(response) {
                     if (response.isLoggedIn) {
                         // 로그인 상태인 경우 좋아요 처리 수행
@@ -73,17 +77,20 @@
         // 좋아요 처리 함수
         function toggleLike(boardId) {
             $.ajax({
-                url: "/toggleLike?boardId=" + boardId,
-                method: "POST",
+                url: "/toggleLike",
+                method: "GET",
+                data: {"boardId": boardId},
                 success: function(response) {
                     // 성공적으로 처리되었을 때의 로직
                     // 예: 버튼 색 변경, 좋아요 수 갱신 등
+                    
                     if (response.likeStatus === "liked") {
                         $("#likeButton").text("좋아요 취소");
                     } else {
                         $("#likeButton").text("좋아요");
                     }
                     $("#likeCount").text("좋아요 수: " + response.likeCount);
+                    
                 },
                 error: function() {
                     alert("서버와 통신 중 오류가 발생했습니다.");
