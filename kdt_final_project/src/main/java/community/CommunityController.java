@@ -311,6 +311,7 @@ public class CommunityController {
 			if (like == null) {
 				// 해당 게시글에 좋아요를 누른 적이 없는 경우
 				likeService.createLike(user_id, board_id);
+				likeService.increaseLikeCount(board_id);
 				response.put("likeStatus", "liked");
 			} else {
 				// 이미 해당 게시글에 좋아요를 누른 경우
@@ -327,8 +328,6 @@ public class CommunityController {
 	@RequestMapping("/board/report")
 	public ModelAndView ShowReport(int id, HttpSession session) {
 		UserDTO userdto = (UserDTO) session.getAttribute("user");
-
-	
 
 		ModelAndView mv = new ModelAndView();
 		

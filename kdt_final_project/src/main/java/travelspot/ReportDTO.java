@@ -1,8 +1,5 @@
 package travelspot;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class ReportDTO {
 	private int id; //신고번호
 	private int commentId; //신고당하는 댓글 번호

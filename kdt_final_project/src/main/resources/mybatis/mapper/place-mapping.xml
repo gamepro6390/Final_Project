@@ -18,8 +18,7 @@
 	<insert id="insertPlaces2" parameterType="placeDTO">
 		insert into
 		place2(contentId, title, areaCode, image1,image2, address, mapx,
-		mapy,
-		contents, viewcnt, writingtime)
+		mapy,contents, viewcnt, writingtime)
 		values(#{contentId},#{title},#{areaCode}, #{image1},0,#{address},
 		#{mapx}, #{mapy},null,0,now());
 	</insert>
@@ -29,15 +28,15 @@
 	<!-- 테마별 여행지 저장: 아이디, 장소명, 테마(기초 정보) -->
 	<insert id="insertThemeBasicInfo" parameterType="placeDTO">
 		insert into
-		place(contentId, title, theme)
-		values(#{contentId},#{title},#{theme});
+		place(contentId, title, theme, contenttypeid)
+		values(#{contentId},#{title},#{theme},#{contentTypeId});
 	</insert>
 
 	<!-- 2 테마별 여행지 저장 : 아이디, 장소명, 테마(기초 정보) -->
 	<insert id="insertThemeBasicInfo2" parameterType="placeDTO">
 		insert into
-		place2(contentId, title, theme)
-		values(#{contentId},#{title},#{theme});
+		place2(contentId, title, theme, contenttypeid)
+		values(#{contentId},#{title},#{theme},#{contentTypeId});
 	</insert>
 
 	<!-- 테마별 여행지 저장: 주소,이미지 (기본 정보) -->

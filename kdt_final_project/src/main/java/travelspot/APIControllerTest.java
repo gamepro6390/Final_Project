@@ -23,7 +23,7 @@ public class APIControllerTest {
 	@PostMapping("/api/test")
 	public String apiCallTest() throws Exception {
 		/*
-		 * 원본 데이터 int[] areaCodes = {32,6,2,5,7,31}; for(int i=0; i<areaCodes.length;
+		 *원본 데이터 int[] areaCodes = {32,6,2,5,7,31}; for(int i=0; i<areaCodes.length;
 		 * i++) { apiServiceImpl.getBasicInfo(areaCodes[i]); }
 		 * 
 		 * apiServiceImpl.getThemeBasicInfo();
@@ -60,6 +60,12 @@ public class APIControllerTest {
 	public String apiTestPlaceDetail(@RequestParam("contentId") int contentId) throws Exception {
 		apiServiceImpl.getThemePlaceDetail(contentId);
 		return "ok";
+	}
+
+	@PostMapping("/api/contenttypeid")
+	public String apiTestPlaceDetail2() throws Exception {
+		 apiServiceImpl.getThemeBasicInfo();
+		 return "ok";
 	}
 
 }

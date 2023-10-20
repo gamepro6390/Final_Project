@@ -1,21 +1,21 @@
 package travelspot;
 
 public class PlaceContentsDTO {
-	int contentId;
-	int contentTypeId; //관광타입 id
-	String title;
-	int areaCode;
-	String image1;
-	String image2;
-	String address;
-	double mapx;
-	double mapy;
-	String contents;
-	String theme;
-	String writingtime;
-	int likecnt;
-	int viewcnt;
-	String homepage;
+	private int contentId;
+	private int contentTypeId; //관광타입 id
+	private String title;
+	private int areaCode;
+	private String image1;
+	private String image2;
+	private String address;
+	private double mapx;
+	private double mapy;
+	private String contents;
+	private String theme;
+	private String writingtime;
+	private int likecnt;
+	private int viewcnt;
+	private String homepage;
 	ContentsDTO contentsdto; //PlaceDTO contentId = PlaceContentsDTO id
 	
 	public int getContentId() {

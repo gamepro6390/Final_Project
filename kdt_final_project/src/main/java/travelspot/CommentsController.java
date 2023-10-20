@@ -63,10 +63,10 @@ public class CommentsController {
 		if(ObjectUtils.isEmpty(userdto) ) {
 		} else {
 		CommentsDTO commentsDTO = new CommentsDTO();
-		 commentsDTO.contents = contents;
-		 commentsDTO.place_id = contentId;
-		 commentsDTO.ref_group = 1;
-		 commentsDTO.writer = userdto.getNickname();
+		 commentsDTO.setContents(contents);
+		 commentsDTO.setPlace_id(contentId);
+		 commentsDTO.setRef_group(1);
+		 commentsDTO.setWriter(userdto.getNickname());
 		 commentsservice.insertComments(commentsDTO);
 		}
 	 }
@@ -87,8 +87,8 @@ public class CommentsController {
 	 @ResponseBody 
 	 public void modify_SaveComments(int id, String contents) {
 		 CommentsDTO dto = new CommentsDTO();
-		 dto.id = id;
-		 dto.contents = contents;
+		 dto.setId(id);
+		 dto.setContents(contents);
 		 
 		 commentsservice.updateComments(dto);
 	 }

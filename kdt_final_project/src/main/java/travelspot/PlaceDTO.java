@@ -1,23 +1,21 @@
 package travelspot;
 
-import org.springframework.stereotype.Component;
-
 public class PlaceDTO {
-	int contentId;
-	Integer contentTypeId; //관광타입 id
-	String title;
-	int areaCode;
-	String image1;
-	String image2;
-	String address;
-	double mapx;
-	double mapy;
-	String contents;
-	String theme;
-	String writingtime;
-	int likecnt;
-	int viewcnt;
-	String homepage;
+	private int contentId;
+	private Integer contentTypeId; //관광타입 id
+	private String title;
+	private int areaCode;
+	private String image1;
+	private String image2;
+	private String address;
+	private double mapx;
+	private double mapy;
+	private String contents;
+	private String theme;
+	private String writingtime;
+	private int likecnt;
+	private int viewcnt;
+	private String homepage;
 
 	public String getHomepage() {
 		return homepage;
@@ -27,7 +25,7 @@ public class PlaceDTO {
 		this.homepage = homepage;
 	}
 
-	public PlaceDTO() { }//기본생성자 
+	public PlaceDTO() {}//기본생성자
 	
 	public String getContents() {
 		return contents;
@@ -144,11 +142,12 @@ public class PlaceDTO {
 	}
 
 	//테마별 추천코스에서 장소Id, 장소명 추출용 dto
-	public PlaceDTO(int contentId, String title, String theme) {
+
+	public PlaceDTO(int contentId, String title, String theme, Integer contenttypeid) {
 		this.contentId = contentId;
 		this.title = title; 
 		this.theme = theme;
-		//this.contentTypeId = contentTypeId; 추천코스 아이디인 25 넘어옴
+		this.contentTypeId = contenttypeid; //추천코스 아이디인 25 넘어옴
 		//this.image1 = image1;
 	}; 
 	

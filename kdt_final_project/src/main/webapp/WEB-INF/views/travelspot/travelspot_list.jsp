@@ -49,7 +49,7 @@ String[] engtitles = new String[]{"gangwon", "busan", "incheon","gwangju", "ulsa
 <div class="container">
 
 <c:forEach items="${placelist }" var="placeDTO">
- <div class="item" > <!-- style="border: 0.3px solid #2463d3" -->
+ <div class="item" >
  	<img class="placeprofile" src=${placeDTO.image1} id=${placeDTO.contentId}>
   	<p class="placeName font_title" id=${placeDTO.contentId}>${placeDTO.title}</p>
   	<h1 class="placeLocation font_content" id=${placeDTO.contentId}></h1>

@@ -6,17 +6,16 @@ import org.springframework.stereotype.Component;
 
 import User.UserDTO;
 
-@Component
 public class CommentsUserDTO {
-	int id; 			//댓글 고유 번호
-	String contents; 	//댓글 내용
-	String writingtime; //댓글 등록시간
-	String writer;		//댓글 작성자
-	String target_id;	//게시글 작성자
-	int ref_group;		//게시글 고유 번호
-	int comment_group;	//대댓글 작성시 댓글의 아이디
-	int content_id;		//커뮤니티 게시글 고유 번호
-	int place_id;		//여행지 게시글 고유 번호
+	private int id; 			//댓글 고유 번호
+	private String contents; 	//댓글 내용
+	private String writingtime; //댓글 등록시간
+	private String writer;		//댓글 작성자
+	private String target_id;	//게시글 작성자
+	private int ref_group;		//게시글 고유 번호
+	private int comment_group;	//대댓글 작성시 댓글의 아이디
+	private int content_id;		//커뮤니티 게시글 고유 번호
+	private int place_id;		//여행지 게시글 고유 번호
 	User.UserDTO UserDTO;
 
 	public User.UserDTO getUserDTO() {
